@@ -20,11 +20,15 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
+import com.meisterlabs.testapp.android.R
+import com.meisterlabs.testapp.android.Screen
 
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
@@ -43,13 +47,13 @@ fun NoteListScreen(
             FloatingActionButton(
                 onClick = {
                     // must be specified argument on new note
-                    navController.navigate("note_detail/-1L")
+                    navController.navigate("${Screen.NoteDetailScreen.route}/-1L")
                 },
                 backgroundColor = Color.Black
             ) {
                 Icon(
                     imageVector = Icons.Default.Add,
-                    contentDescription = "Add note",
+                    contentDescription = stringResource(id = R.string.add_note),
                     tint = Color.White
                 )
             }
@@ -80,7 +84,7 @@ fun NoteListScreen(
                     exit = fadeOut()
                 ) {
                     Text(
-                        text = "All notes",
+                        text = stringResource(id = R.string.all_notes),
                         fontWeight = FontWeight.Bold,
                         fontSize = 30.sp
                     )
@@ -98,7 +102,7 @@ fun NoteListScreen(
                         backgroundColor = Color(note.colorHex),
                         onNoteClick = {
                             // edit route
-                            navController.navigate("note_detail/${note.id}")
+                            navController.navigate("${Screen.NoteDetailScreen.route}/${note.id}")
                         },
                         onDeleteClick = {
                             viewModel.deleteNoteById(note.id!!)
@@ -109,6 +113,19 @@ fun NoteListScreen(
                             .animateItemPlacement()
                     )
                 }
+            }
+        }
+        Box(
+            contentAlignment = Alignment.Center,
+            modifier = Modifier.fillMaxSize()
+        ) {
+            if (state.notes.isEmpty()) {
+                Text(
+                    text = stringResource(id = R.string.no_notes),
+                    fontWeight = FontWeight.SemiBold,
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.Center
+                )
             }
         }
     }

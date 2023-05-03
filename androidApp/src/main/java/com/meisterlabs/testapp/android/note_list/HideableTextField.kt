@@ -17,7 +17,9 @@ import androidx.compose.material.icons.filled.Search
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.meisterlabs.testapp.android.R
 
 @Composable
 fun HideableSearchTextfield(
@@ -38,7 +40,7 @@ fun HideableSearchTextfield(
                 value = text,
                 onValueChange = onTextChange,
                 shape = RoundedCornerShape(50.dp),
-                placeholder = { Text(text = "Search") },
+                placeholder = { Text(text = stringResource(id = R.string.search)) },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(16.dp)
@@ -54,7 +56,7 @@ fun HideableSearchTextfield(
             IconButton(onClick = onCloseClick) {
                 Icon(
                     imageVector = Icons.Default.Close,
-                    contentDescription = "Close search"
+                    contentDescription = stringResource(id = R.string.close_search)
                 )
             }
         }
@@ -67,7 +69,7 @@ fun HideableSearchTextfield(
             IconButton(onClick = onSearchClick) {
                 Icon(
                     imageVector = Icons.Default.Search,
-                    contentDescription = "Open search"
+                    contentDescription = stringResource(id = R.string.open_search)
                 )
             }
         }
