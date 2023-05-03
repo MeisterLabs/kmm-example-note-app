@@ -1,14 +1,13 @@
 package com.meisterlabs.testapp.android.note_detail
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material.FloatingActionButton
@@ -71,7 +70,6 @@ fun NoteDetailScreen(
             modifier = Modifier
                 .background(Color(state.noteColor))
                 .fillMaxSize()
-                .padding(padding)
                 .padding(16.dp)
         ) {
             Box(
@@ -82,20 +80,23 @@ fun NoteDetailScreen(
                     text = stringResource(id = R.string.note_detail),
                     fontWeight = FontWeight.Bold,
                     fontSize = 30.sp,
-                    modifier = Modifier.align(Alignment.TopCenter)
+                    modifier = Modifier
+                        .align(Alignment.TopCenter)
+                        .offset(y = 16.dp)
                 )
-                IconButton(onClick = {
-                    navController.popBackStack()
-                },
-                    modifier = Modifier.align(Alignment.TopEnd)
-                ) {
+                IconButton(modifier = Modifier
+                    .align(Alignment.TopEnd)
+                    .then(Modifier.size(24.dp)),
+                    onClick = {
+                        navController.popBackStack()
+                    }) {
                     Icon(
                         imageVector = Icons.Default.Close,
                         contentDescription = stringResource(id = R.string.close_note_detail)
                     )
                 }
             }
-            Spacer(modifier = Modifier.size(16.dp))
+            Spacer(modifier = Modifier.size(24.dp))
             TransparentHintTextField(
                 text = state.noteTitle,
                 hint = stringResource(id = R.string.hint_note_title),
