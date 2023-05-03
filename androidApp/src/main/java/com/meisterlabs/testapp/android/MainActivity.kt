@@ -19,12 +19,12 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = "note_list") {
-                    composable(route = "note_list") {
+                NavHost(navController = navController, startDestination = Screen.NoteListScreen.route) {
+                    composable(route = Screen.NoteListScreen.route) {
                         NoteListScreen(navController = navController)
                     }
                     composable(
-                        route = "note_detail/{noteId}",
+                        route = "${Screen.NoteDetailScreen.route}/{noteId}",
                         arguments = listOf(
                             navArgument(name = "noteId") {
                                 type = NavType.LongType

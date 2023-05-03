@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="all_notes">All notes</string>
+    <string name="add_note">Add note</string>
+    <string name="delete_note">Delete note</string>
+    <string name="search">Search</string>
+    <string name="close_search">Close search</string>
+    <string name="open_search">Open search</string>
+    <string name="save_note">Save note</string>
+    <string name="hint_note_title">Enter a title...</string>
+    <string name="hint_note_content">Enter some content</string>
+    <string name="no_notes">No notes found</string>
+    <string name="note_detail">Note detail</string>
+    <string name="close_note_detail">Close note detail</string>
+</resources>

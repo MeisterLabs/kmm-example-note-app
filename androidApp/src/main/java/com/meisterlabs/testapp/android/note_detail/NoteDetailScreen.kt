@@ -1,27 +1,39 @@
 package com.meisterlabs.testapp.android.note_detail
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.Scaffold
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.meisterlabs.testapp.android.R
 
 @Composable
 fun NoteDetailScreen(
@@ -32,6 +44,8 @@ fun NoteDetailScreen(
 
     val state by viewModel.state.collectAsState()
     val hasNoteBeenSaved by viewModel.hasNoteBeenSaved.collectAsState()
+
+    val isEdit = noteId != -1L
 
     LaunchedEffect(key1 = hasNoteBeenSaved) {
         if (hasNoteBeenSaved) {
@@ -47,7 +61,7 @@ fun NoteDetailScreen(
             ) {
                 Icon(
                     imageVector = Icons.Default.Check,
-                    contentDescription = "Save note",
+                    contentDescription = stringResource(id = R.string.save_note),
                     tint = Color.White
                 )
             }
@@ -60,28 +74,50 @@ fun NoteDetailScreen(
                 .padding(padding)
                 .padding(16.dp)
         ) {
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+            ) {
+                Text(
+                    text = stringResource(id = R.string.note_detail),
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 30.sp,
+                    modifier = Modifier.align(Alignment.TopCenter)
+                )
+                IconButton(onClick = {
+                    navController.popBackStack()
+                },
+                    modifier = Modifier.align(Alignment.TopEnd)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Close,
+                        contentDescription = stringResource(id = R.string.close_note_detail)
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.size(16.dp))
             TransparentHintTextField(
                 text = state.noteTitle,
-                hint = "Enter a title...",
+                hint = stringResource(id = R.string.hint_note_title),
                 isHintVisible = state.isNoteTitleHintVisible,
                 onValueChanged = viewModel::onNoteTitleChanged,
                 onFocusChanged = {
                     viewModel.onNoteTitleFocusChanged(it.isFocused)
                 },
                 singleLine = true,
-                textStyle = TextStyle(fontSize = 20.sp)
+                textStyle = TextStyle(fontSize = 25.sp, fontWeight = FontWeight.Bold)
             )
             Spacer(modifier = Modifier.height(16.dp))
             TransparentHintTextField(
                 text = state.noteContent,
-                hint = "Enter some content...",
+                hint = stringResource(id = R.string.hint_note_content),
                 isHintVisible = state.isNoteContentHintVisible,
                 onValueChanged = viewModel::onNoteContentChanged,
                 onFocusChanged = {
                     viewModel.onNoteContentFocusChanged(it.isFocused)
                 },
                 singleLine = false,
-                textStyle = TextStyle(fontSize = 20.sp),
+                textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Light),
                 modifier = Modifier.weight(1f)
             )
         }
