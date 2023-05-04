@@ -23,6 +23,6 @@ fun DocumentResponse.toNote(): Note = Note(
     id = name.substringAfterLast("/"),
     title = fields.name.stringValue,
     content = fields.content.stringValue,
-    colorHex = 0L,
+    colorHex = fields.colorHex.integerValue,
     created = DateTimeUtil.now()
 )

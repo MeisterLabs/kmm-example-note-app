@@ -1,10 +1,10 @@
 package com.meisterlabs.testapp.domain.model
 
-import com.meisterlabs.noteapp.presentation.BabyBlueHex
-import com.meisterlabs.noteapp.presentation.LightGreenHex
-import com.meisterlabs.noteapp.presentation.RedOrangeHex
-import com.meisterlabs.noteapp.presentation.RedPinkHex
-import com.meisterlabs.noteapp.presentation.VioletHex
+import com.meisterlabs.testapp.presentation.BabyBlueHex
+import com.meisterlabs.testapp.presentation.LightGreenHex
+import com.meisterlabs.testapp.presentation.RedOrangeHex
+import com.meisterlabs.testapp.presentation.RedPinkHex
+import com.meisterlabs.testapp.presentation.VioletHex
 import kotlinx.datetime.LocalDateTime
 
 data class Note(

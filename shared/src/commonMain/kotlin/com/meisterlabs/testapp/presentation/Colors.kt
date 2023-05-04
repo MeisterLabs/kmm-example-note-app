@@ -1,4 +1,4 @@
-package com.meisterlabs.noteapp.presentation
+package com.meisterlabs.testapp.presentation
 
 const val RedOrangeHex = 0xffffab91
 const val RedPinkHex = 0xfff48fb1
