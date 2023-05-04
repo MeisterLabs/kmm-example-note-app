@@ -11,13 +11,15 @@ import shared
 
 struct NoteListScreen: View {
     private var noteDataSource: NoteDataSource
-    @StateObject var viewModel = NoteListViewModel(noteDataSource: nil)
+    private var getNoteUseCase: GetNotesUseCase
+    @StateObject var viewModel = NoteListViewModel(noteDataSource: nil, getNotesUseCase: nil)
     
     @State private var isNoteSelected = false
     @State private var selectedNoteId: String? = nil
     
-    init(noteDataSource: NoteDataSource) {
+    init(noteDataSource: NoteDataSource, getNotesUseCase: GetNotesUseCase) {
         self.noteDataSource = noteDataSource
+        self.getNoteUseCase = getNotesUseCase
     }
     
     var body: some View {
@@ -69,6 +71,7 @@ struct NoteListScreen: View {
         }
         .onAppear {
             viewModel.setNoteDataSource(noteDataSource: noteDataSource)
+            viewModel.setGetNoteUseCase(getNoteUseCase: getNoteUseCase)
         }
     }
 }

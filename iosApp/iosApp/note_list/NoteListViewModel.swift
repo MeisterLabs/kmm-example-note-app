@@ -13,6 +13,7 @@ extension NoteListScreen {
     // observable object instead of ViewModel
     // mainActor - happening on main thread
     @MainActor class NoteListViewModel: ObservableObject {
+        private var getNotesUseCase: GetNotesUseCase? = nil
         private var noteDataSource: NoteDataSource? = nil
         
         private let searchNotes = SearchNotesUseCase()
@@ -29,8 +30,9 @@ extension NoteListScreen {
         @Published private(set) var isSearchActive = false
         
         
-        init(noteDataSource: NoteDataSource? = nil) {
+        init(noteDataSource: NoteDataSource? = nil, getNotesUseCase: GetNotesUseCase? = nil) {
             self.noteDataSource = noteDataSource
+            self.getNotesUseCase = getNotesUseCase
         }
         
         func loadNotes() {
@@ -59,6 +61,10 @@ extension NoteListScreen {
             
         func setNoteDataSource(noteDataSource: NoteDataSource) {
             self.noteDataSource = noteDataSource
+        }
+        
+        func setGetNoteUseCase(getNotesUseCase: GetNotesUseCase) {
+            self.getNotesUseCase = getNotesUseCase
         }
         
     }
