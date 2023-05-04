@@ -36,15 +36,12 @@ import com.meisterlabs.testapp.android.R
 
 @Composable
 fun NoteDetailScreen(
-    noteId: Long,
     navController: NavController,
     viewModel: NoteDetailViewModel = hiltViewModel(),
 ) {
 
     val state by viewModel.state.collectAsState()
     val hasNoteBeenSaved by viewModel.hasNoteBeenSaved.collectAsState()
-
-    val isEdit = noteId != -1L
 
     LaunchedEffect(key1 = hasNoteBeenSaved) {
         if (hasNoteBeenSaved) {

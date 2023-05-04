@@ -5,6 +5,8 @@ import com.meisterlabs.testapp.domain.note.NoteDataSource
 import com.meisterlabs.testapp.data.local.DatabaseDriverFactory
 import com.meisterlabs.testapp.data.repository.NotesRepositoryImpl
 import com.meisterlabs.testapp.data.local.SqlDelightNoteDataSource
+import com.meisterlabs.testapp.data.remote.NotesService
+import com.meisterlabs.testapp.data.remote.NotesServiceImpl
 import com.meisterlabs.testapp.database.NoteDatabase
 import com.meisterlabs.testapp.domain.repository.NotesRepository
 import com.meisterlabs.testapp.domain.use_cases.DeleteNoteUseCase
@@ -36,8 +38,14 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteRepository(): NotesRepository {
-        return NotesRepositoryImpl()
+    fun provideNoteRepository(notesService: NotesService): NotesRepository {
+        return NotesRepositoryImpl(notesService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideNoteService(): NotesService {
+        return NotesServiceImpl()
     }
 
     @Provides
@@ -54,7 +62,7 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideSearchNotesUseCase() : SearchNotesUseCase {
+    fun provideSearchNotesUseCase(): SearchNotesUseCase {
         return SearchNotesUseCase()
     }
 }

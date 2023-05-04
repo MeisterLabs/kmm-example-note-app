@@ -7,6 +7,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.Icon
 import androidx.compose.material.Scaffold
@@ -47,7 +48,7 @@ fun NoteListScreen(
             FloatingActionButton(
                 onClick = {
                     // must be specified argument on new note
-                    navController.navigate("${Screen.NoteDetailScreen.route}/-1L")
+                    navController.navigate("${Screen.NoteDetailScreen.route}/")
                 },
                 backgroundColor = Color.Black
             ) {
@@ -119,13 +120,17 @@ fun NoteListScreen(
             contentAlignment = Alignment.Center,
             modifier = Modifier.fillMaxSize()
         ) {
-            if (state.notes.isEmpty()) {
+            if (state.notes.isEmpty() && !state.isLoading) {
                 Text(
                     text = stringResource(id = R.string.no_notes),
                     fontWeight = FontWeight.SemiBold,
                     fontSize = 20.sp,
                     textAlign = TextAlign.Center
                 )
+            }
+
+            if (state.isLoading) {
+                CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
             }
         }
     }

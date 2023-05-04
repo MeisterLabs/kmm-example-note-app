@@ -8,8 +8,7 @@ import com.meisterlabs.noteapp.presentation.VioletHex
 import kotlinx.datetime.LocalDateTime
 
 data class Note(
-    val id: Long?,
-    val remoteId: String?,
+    val id: String?,
     val title: String,
     val content: String,
     val colorHex: Long,

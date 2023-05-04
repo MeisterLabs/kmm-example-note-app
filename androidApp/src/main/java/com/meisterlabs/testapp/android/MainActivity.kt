@@ -19,7 +19,10 @@ class MainActivity : ComponentActivity() {
         setContent {
             MyApplicationTheme {
                 val navController = rememberNavController()
-                NavHost(navController = navController, startDestination = Screen.NoteListScreen.route) {
+                NavHost(
+                    navController = navController,
+                    startDestination = Screen.NoteListScreen.route
+                ) {
                     composable(route = Screen.NoteListScreen.route) {
                         NoteListScreen(navController = navController)
                     }
@@ -27,13 +30,12 @@ class MainActivity : ComponentActivity() {
                         route = "${Screen.NoteDetailScreen.route}/{noteId}",
                         arguments = listOf(
                             navArgument(name = "noteId") {
-                                type = NavType.LongType
-                                defaultValue = -1L
+                                type = NavType.StringType
+                                defaultValue = ""
                             }
                         )
-                    ) { backStackEntry ->
-                        val noteId = backStackEntry.arguments?.getLong("noteId") ?: -1L
-                        NoteDetailScreen(noteId = noteId, navController = navController)
+                    ) {
+                        NoteDetailScreen(navController = navController)
                     }
                 }
             }

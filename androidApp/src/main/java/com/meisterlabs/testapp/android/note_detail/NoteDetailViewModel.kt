@@ -47,12 +47,12 @@ class NoteDetailViewModel @Inject constructor(
     private val _hasNoteBeenSaved = MutableStateFlow(false)
     val hasNoteBeenSaved = _hasNoteBeenSaved.asStateFlow()
 
-    private var existingNodeId: Long? = null
+    private var existingNodeId: String? = null
 
     init {
         // when it's edit
-        savedStateHandle.get<Long>("nodeId")?.let { existingNodeId ->
-            if (existingNodeId == -1L) {
+        savedStateHandle.get<String>("nodeId")?.let { existingNodeId ->
+            if (existingNodeId.isBlank()) {
                 // navigation doesn't support nullable
                 return@let
             }
@@ -89,7 +89,6 @@ class NoteDetailViewModel @Inject constructor(
             noteDataSource.insertNode(
                 Note(
                     id = existingNodeId,
-                    remoteId = "",
                     title = noteTitle.value,
                     content = noteContent.value,
                     colorHex = noteColor.value,

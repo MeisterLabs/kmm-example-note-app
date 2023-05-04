@@ -1,32 +1,27 @@
 package com.meisterlabs.testapp.data.repository
 
 import com.meisterlabs.kmmtasknote.common.Resource
-import com.meisterlabs.testapp.common.Constants
+import com.meisterlabs.testapp.data.mapper.toNote
+import com.meisterlabs.testapp.data.remote.NotesService
 import com.meisterlabs.testapp.domain.model.Note
 import com.meisterlabs.testapp.domain.repository.NotesRepository
-import dev.gitlive.firebase.Firebase
-import dev.gitlive.firebase.firestore.firestore
-import kotlinx.coroutines.channels.awaitClose
+
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.callbackFlow
+import kotlinx.coroutines.flow.flow
 
-class NotesRepositoryImpl: NotesRepository {
+class NotesRepositoryImpl(
+    private val notesService: NotesService,
+) : NotesRepository {
 
-    override suspend fun getNotes(): Flow<Resource<List<Note>>> = callbackFlow {
-        // trySend(Resource.Loading<Note>
-        val firestore = Firebase.firestore.collection(Constants.NOTES_COLLECTION).snapshots
-        // val snapshotListener = noteRef.addSnapshotListener { snapshot, e ->
-        //     val notesResponse = if (snapshot != null) {
-        //         val notes = snapshot.toObjects(Note::class)
-        //         Resource.Success(notes)
-        //     } else {
-        //         Resource.Error("Error", e)
-        //     }
-        //     trySend(notesResponse)
-        // }
-        // awaitClose {
-        //     snapshotListener.remove()
-        // }
+    override suspend fun getNotes(): Flow<Resource<List<Note>>> = flow {
+         try {
+            emit(Resource.Loading())
+            val notes = notesService.getNotes()?.documents?.map { it.toNote() } ?: emptyList()
+            emit(Resource.Success(notes))
+        } catch (e: Exception) {
+            emit(Resource.Error("${e.message}"))
+        }
+
     }
 
     override suspend fun addNote(name: String, content: String): Resource<Note> {

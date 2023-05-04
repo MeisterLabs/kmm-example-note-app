@@ -14,8 +14,7 @@ class SqlDelightNoteDataSource(
 
     override suspend fun insertNode(note: Note) {
         noteQueries.insertNote(
-            id = note.id,
-            remoteId = note.remoteId ?: "",
+            id = note.id ?: "",
             title = note.title,
             content = note.content,
             colorHex = note.colorHex,
@@ -23,7 +22,7 @@ class SqlDelightNoteDataSource(
         )
     }
 
-    override suspend fun getNoteById(id: Long): Note? {
+    override suspend fun getNoteById(id: String): Note? {
         return noteQueries
             .getNoteById(id)
             .executeAsOneOrNull()
@@ -37,7 +36,7 @@ class SqlDelightNoteDataSource(
             .map { it.toNote() }
     }
 
-    override suspend fun deleteNoteByd(id: Long) {
+    override suspend fun deleteNoteByd(id: String) {
         noteQueries.deleteNoteById(id)
     }
 }
