@@ -30,24 +30,26 @@ class NotesRepositoryImpl(
     }
 
     override suspend fun saveNote(note: Note): Resource<Note> = try {
-            val noteRequest = NoteRequest(
-                name = StringFieldValue(note.title),
-                content = StringFieldValue(note.content),
-                colorHex = NumberFieldValue(note.colorHex),
-                createdAt = NumberFieldValue(DateTimeUtil.toEpochMillis(DateTimeUtil.now()))
-            )
+        val noteRequest = NoteRequest(
+            name = StringFieldValue(note.title),
+            content = StringFieldValue(note.content),
+            colorHex = NumberFieldValue(note.colorHex),
+            createdAt = NumberFieldValue(DateTimeUtil.toEpochMillis(DateTimeUtil.now()))
+        )
 
-            notesService.createNote(noteRequest)?.toNote()?.let { savedNote ->
-                noteDataSource.insertNode(savedNote)
-                Resource.Success(savedNote)
-            } ?: Resource.Error("Note shouldn't be null")
+        notesService.createNote(noteRequest)?.toNote()?.let { savedNote ->
+            noteDataSource.insertNode(savedNote)
+            Resource.Success(savedNote)
+        } ?: Resource.Error("Note shouldn't be null")
+    } catch (e: Exception) {
+        Resource.Error("Error create note: $e")
+    }
 
-        } catch (e: Exception) {
-            println("error insert node: $e")
-            Resource.Error("Error create note: $e")
-        }
-
-    override suspend fun deleteNote(noteId: String): Resource<Note> {
-        TODO("Not yet implemented")
+    override suspend fun deleteNote(noteId: String): Resource<Unit> = try {
+        notesService.deleteNote(noteId)
+        noteDataSource.deleteNoteByd(noteId)
+        Resource.Success(Unit)
+    } catch (e: Exception) {
+        Resource.Error("Failed to delete note: $e")
     }
 }
