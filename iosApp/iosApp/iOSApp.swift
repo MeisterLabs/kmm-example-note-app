@@ -3,13 +3,12 @@ import shared
 
 @main
 struct iOSApp: App {
-    private let databaseModule = DatabaseModule()
-    private let diModule = DomainModule()
+    private let diModule = DiModule()
     
 	var body: some Scene {
 		WindowGroup {
             NavigationView {
-                NoteListScreen(noteDataSource: databaseModule.noteDataSource, getNotesUseCase: databaseModule.getNotesUseCase)
+                NoteListScreen(noteDataSource: diModule.noteDataSource, getNotesUseCase: diModule.getNotesUseCase)
             }.accentColor(.black)
         }
 	}

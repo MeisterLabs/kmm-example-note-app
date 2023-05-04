@@ -12,7 +12,7 @@ import com.meisterlabs.testapp.domain.use_cases.GetNotesUseCase
 class DiModule {
     private val factory by lazy { DatabaseDriverFactory() }
 
-    private val noteDataSource: NoteDataSource by lazy {
+    val noteDataSource: NoteDataSource by lazy {
         SqlDelightNoteDataSource(NoteDatabase(factory.createDriver()))
     }
 
