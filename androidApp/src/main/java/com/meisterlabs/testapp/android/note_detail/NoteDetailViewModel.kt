@@ -3,9 +3,11 @@ package com.meisterlabs.testapp.android.note_detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.meisterlabs.kmmtasknote.common.Resource
 import com.meisterlabs.testapp.domain.model.Note
-import com.meisterlabs.testapp.domain.note.NoteDataSource
+import com.meisterlabs.testapp.data.local.NoteDataSource
 import com.meisterlabs.noteapp.domain.time.DateTimeUtil
+import com.meisterlabs.testapp.domain.use_cases.SaveNoteUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -13,10 +15,12 @@ import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.combine
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 @HiltViewModel
 class NoteDetailViewModel @Inject constructor(
+    private val saveNoteUseCase: SaveNoteUseCase,
     private val noteDataSource: NoteDataSource,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -47,6 +51,9 @@ class NoteDetailViewModel @Inject constructor(
     private val _hasNoteBeenSaved = MutableStateFlow(false)
     val hasNoteBeenSaved = _hasNoteBeenSaved.asStateFlow()
 
+    private val _isLoading = MutableStateFlow(false)
+    val isLoading = _isLoading.asStateFlow()
+
     private var existingNodeId: String? = null
 
     init {
@@ -58,12 +65,12 @@ class NoteDetailViewModel @Inject constructor(
             }
             this.existingNodeId = existingNodeId
             viewModelScope.launch {
-                // noteDataSource.getNoteById(existingNodeId)?.let { note ->
-                //     // save in saved state from data source
-                //     savedStateHandle["noteTitle"] = note.title
-                //     savedStateHandle["noteContent"] = note.content
-                //     savedStateHandle["noteColor"] = note.colorHex
-                // }
+                noteDataSource.getNoteById(existingNodeId)?.let { note ->
+                    // save in saved state from data source
+                    savedStateHandle["noteTitle"] = note.title
+                    savedStateHandle["noteContent"] = note.content
+                    savedStateHandle["noteColor"] = note.colorHex
+                }
             }
         }
     }
@@ -86,7 +93,7 @@ class NoteDetailViewModel @Inject constructor(
 
     fun saveNote() {
         viewModelScope.launch {
-            noteDataSource.insertNode(
+            saveNoteUseCase.execute(
                 Note(
                     id = existingNodeId,
                     title = noteTitle.value,

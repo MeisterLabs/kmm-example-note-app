@@ -1,7 +1,6 @@
 package com.meisterlabs.testapp.data.local
 
 import com.meisterlabs.testapp.domain.model.Note
-import com.meisterlabs.testapp.domain.note.NoteDataSource
 import com.meisterlabs.noteapp.domain.time.DateTimeUtil
 import com.meisterlabs.testapp.data.mapper.toNote
 import com.meisterlabs.testapp.database.NoteDatabase

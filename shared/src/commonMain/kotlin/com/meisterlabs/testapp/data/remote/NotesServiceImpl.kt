@@ -2,6 +2,8 @@ package com.meisterlabs.testapp.data.remote
 
 import com.meisterlabs.testapp.common.Constants
 import com.meisterlabs.testapp.data.dto.CollectionResponse
+import com.meisterlabs.testapp.data.dto.DocumentRequest
+import com.meisterlabs.testapp.data.dto.DocumentResponse
 import com.meisterlabs.testapp.data.dto.NoteRequest
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
@@ -9,6 +11,8 @@ import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
 import io.ktor.client.plugins.logging.LogLevel
 import io.ktor.client.plugins.logging.Logging
 import io.ktor.client.request.get
+import io.ktor.client.request.post
+import io.ktor.client.request.setBody
 import io.ktor.client.request.url
 import io.ktor.http.ContentType
 import io.ktor.http.contentType
@@ -44,7 +48,17 @@ class NotesServiceImpl : NotesService {
         }
     }
 
-    override suspend fun createNote(noteRequest: NoteRequest) {
-        TODO("Not yet implemented")
+    override suspend fun createNote(noteRequest: NoteRequest): DocumentResponse? {
+        val response = client.post {
+            setBody(DocumentRequest(fields = noteRequest))
+            url(Constants.USER_NOTES_COLLECTION)
+            contentType(ContentType.Application.Json)
+        }
+
+        return if (response.status.isSuccess()) {
+            response.body()
+        } else {
+            null
+        }
     }
 }

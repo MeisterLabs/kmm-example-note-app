@@ -6,5 +6,6 @@ import kotlinx.serialization.Serializable
 data class NoteFields(
     val name: StringFieldValue,
     val content: StringFieldValue,
-    val colorHex: NumberFieldValue
+    val colorHex: NumberFieldValue,
+    val createdAt: NumberFieldValue,
 )

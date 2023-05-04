@@ -1,7 +1,7 @@
 package com.meisterlabs.testapp.android.di
 
 import android.app.Application
-import com.meisterlabs.testapp.domain.note.NoteDataSource
+import com.meisterlabs.testapp.data.local.NoteDataSource
 import com.meisterlabs.testapp.data.local.DatabaseDriverFactory
 import com.meisterlabs.testapp.data.repository.NotesRepositoryImpl
 import com.meisterlabs.testapp.data.local.SqlDelightNoteDataSource
@@ -11,6 +11,7 @@ import com.meisterlabs.testapp.database.NoteDatabase
 import com.meisterlabs.testapp.domain.repository.NotesRepository
 import com.meisterlabs.testapp.domain.use_cases.DeleteNoteUseCase
 import com.meisterlabs.testapp.domain.use_cases.GetNotesUseCase
+import com.meisterlabs.testapp.domain.use_cases.SaveNoteUseCase
 import com.meisterlabs.testapp.domain.use_cases.SearchNotesUseCase
 import com.squareup.sqldelight.db.SqlDriver
 import dagger.Module
@@ -38,8 +39,11 @@ object AppModule {
 
     @Provides
     @Singleton
-    fun provideNoteRepository(notesService: NotesService): NotesRepository {
-        return NotesRepositoryImpl(notesService)
+    fun provideNoteRepository(
+        notesService: NotesService,
+        noteDataSource: NoteDataSource,
+    ): NotesRepository {
+        return NotesRepositoryImpl(notesService, noteDataSource)
     }
 
     @Provides
@@ -64,5 +68,11 @@ object AppModule {
     @Singleton
     fun provideSearchNotesUseCase(): SearchNotesUseCase {
         return SearchNotesUseCase()
+    }
+
+    @Provides
+    @Singleton
+    fun provideSaveNoteUseCase(repository: NotesRepository): SaveNoteUseCase {
+        return SaveNoteUseCase(repository)
     }
 }

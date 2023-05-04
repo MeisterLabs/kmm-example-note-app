@@ -1,6 +1,5 @@
 package com.meisterlabs.testapp.android.note_detail
 
-
 data class NoteDetailState(
     val noteTitle: String = "",
     val isNoteTitleHintVisible: Boolean = false,

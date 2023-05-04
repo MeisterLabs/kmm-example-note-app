@@ -48,7 +48,7 @@ fun NoteListScreen(
             FloatingActionButton(
                 onClick = {
                     // must be specified argument on new note
-                    navController.navigate("${Screen.NoteDetailScreen.route}/")
+                    navController.navigate("${Screen.NoteDetailScreen.route}/-1L")
                 },
                 backgroundColor = Color.Black
             ) {

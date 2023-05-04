@@ -30,11 +30,19 @@ class NoteListViewModel @Inject constructor(
     private val isLoading = savedStateHandle.getStateFlow("isLoading", false)
     private val error = savedStateHandle.getStateFlow("error", "")
 
-    val state = combine(notes, searchText, isSearchActive) { notes, searchText, isSearchActive ->
+    val state = combine(
+        notes,
+        searchText,
+        isSearchActive,
+        isLoading,
+        error
+    ) { notes, searchText, isSearchActive, isLoading, error ->
         NoteListState(
             notes = searchNotesUseCase.execute(notes, searchText),
             searchText = searchText,
-            isSearchActive = isSearchActive
+            isSearchActive = isSearchActive,
+            isLoading = isLoading,
+            error = error
         )
     }.stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), NoteListState())
 

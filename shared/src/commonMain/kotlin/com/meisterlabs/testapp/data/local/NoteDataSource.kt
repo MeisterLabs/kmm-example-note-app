@@ -1,4 +1,4 @@
-package com.meisterlabs.testapp.domain.note
+package com.meisterlabs.testapp.data.local
 
 import com.meisterlabs.testapp.domain.model.Note
 
