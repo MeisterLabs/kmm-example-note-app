@@ -11,14 +11,14 @@ import shared
 
 struct NoteDetailScreen: View {
     private var noteDataSource: NoteDataSource
-    private var noteId: Int64? = nil
+    private var noteId: String? = nil
     
     @StateObject var viewModel = NoteDetailViewModel(noteDataSource: nil)
     
     // backstack
     @Environment(\.presentationMode) var presentation
     
-    init(noteDataSource: NoteDataSource, noteId: Int64? = nil) {
+    init(noteDataSource: NoteDataSource, noteId: String? = nil) {
         self.noteDataSource = noteDataSource
         self.noteId = noteId
     }

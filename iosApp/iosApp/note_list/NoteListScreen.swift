@@ -14,7 +14,7 @@ struct NoteListScreen: View {
     @StateObject var viewModel = NoteListViewModel(noteDataSource: nil)
     
     @State private var isNoteSelected = false
-    @State private var selectedNoteId: Int64? = nil
+    @State private var selectedNoteId: String? = nil
     
     init(noteDataSource: NoteDataSource) {
         self.noteDataSource = noteDataSource
@@ -52,10 +52,10 @@ struct NoteListScreen: View {
                 ForEach(viewModel.filterNotes, id: \.self.id) { note in
                     Button(action: {
                         isNoteSelected = true
-                        selectedNoteId = note.id?.int64Value
+                        selectedNoteId = note.id!
                     }) {
                         NoteItem(note: note, onDeleteClick: {
-                            viewModel.deleteNoteById(id: note.id!.int64Value)
+                            viewModel.deleteNoteById(id: note.id!)
                         })
                     }
                     

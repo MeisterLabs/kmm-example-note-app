@@ -42,7 +42,7 @@ extension NoteListScreen {
         }
         
         // equalient to Long
-        func deleteNoteById(id: Int64) {
+        func deleteNoteById(id: String) {
             if id != nil {
                 noteDataSource?.deleteNoteByd(id: id, completionHandler: { error in
                     self.loadNotes()
