@@ -3,7 +3,7 @@
     <string name="all_notes">All notes</string>
     <string name="add_note">Add note</string>
     <string name="delete_note">Delete note</string>
-    <string name="search">Search</string>
+    <string name="search">Search…</string>
     <string name="close_search">Close search</string>
     <string name="open_search">Open search</string>
     <string name="save_note">Save note</string>

@@ -42,7 +42,7 @@ struct NoteListScreen: View {
                 .padding()
                 
                 if !viewModel.isSearchActive {
-                    Text("All notes")
+                    Text("all_notes")
                         .font(.title2)
                 }
             }

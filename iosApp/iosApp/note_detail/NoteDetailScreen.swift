@@ -25,9 +25,9 @@ struct NoteDetailScreen: View {
     
     var body: some View {
         VStack(alignment: .leading) {
-            TextField("Enter a title", text: $viewModel.noteTitle)
+            TextField("hint_note_title",text: $viewModel.noteTitle)
                 .font(.title)
-            TextField("Enter some content...",  text: $viewModel.noteContent)
+            TextField("hint_note_content",  text: $viewModel.noteContent)
             // occupy all space
             Spacer()
         }.toolbar(content: {

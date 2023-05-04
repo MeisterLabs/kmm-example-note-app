@@ -19,7 +19,7 @@ struct HideableSearchTextField<Destination: View>: View {
     var body: some View {
         // horizontal stack
         HStack {
-            TextField("Search...", text: $searchText)
+            TextField("search", text: $searchText)
                 .textFieldStyle(.roundedBorder)
                 .opacity(isSearchActive ? 1: 0)
             if !isSearchActive {
@@ -41,7 +41,7 @@ struct HideableSearchTextField_Previews: PreviewProvider {
             onSearchToggled: { },
             destinationProvider: {EmptyView()},
             isSearchActive: true,
-            searchText: .constant("Youtube")
+            searchText: .constant("KMM")
         )
     }
 }
