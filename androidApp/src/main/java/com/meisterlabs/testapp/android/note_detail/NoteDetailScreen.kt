@@ -121,15 +121,15 @@ fun NoteDetailScreen(
                 textStyle = TextStyle(fontSize = 20.sp, fontWeight = FontWeight.Light),
                 modifier = Modifier.weight(1f)
             )
+        }
+    }
 
-            Box(
-                contentAlignment = Alignment.Center,
-                modifier = Modifier.fillMaxSize()
-            ) {
-                if (isLoading) {
-                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
-                }
-            }
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier.fillMaxSize()
+    ) {
+        if (isLoading) {
+            CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
         }
     }
 }

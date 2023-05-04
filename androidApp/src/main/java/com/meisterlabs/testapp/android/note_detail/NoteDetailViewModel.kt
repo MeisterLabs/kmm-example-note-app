@@ -58,7 +58,7 @@ class NoteDetailViewModel @Inject constructor(
 
     init {
         // when it's edit
-        savedStateHandle.get<String>("nodeId")?.let { existingNodeId ->
+        savedStateHandle.get<String>("noteId")?.let { existingNodeId ->
             if (existingNodeId.isBlank()) {
                 // navigation doesn't support nullable
                 return@let
@@ -93,6 +93,7 @@ class NoteDetailViewModel @Inject constructor(
 
     fun saveNote() {
         viewModelScope.launch {
+            _isLoading.value = true
             saveNoteUseCase.execute(
                 Note(
                     id = existingNodeId,
@@ -102,6 +103,7 @@ class NoteDetailViewModel @Inject constructor(
                     created = DateTimeUtil.now()
                 )
             )
+            _isLoading.value = false
             _hasNoteBeenSaved.value = true
         }
     }
