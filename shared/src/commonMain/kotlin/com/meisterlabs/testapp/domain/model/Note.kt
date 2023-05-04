@@ -1,4 +1,4 @@
-package com.meisterlabs.testapp.domain.note
+package com.meisterlabs.testapp.domain.model
 
 import com.meisterlabs.noteapp.presentation.BabyBlueHex
 import com.meisterlabs.noteapp.presentation.LightGreenHex
@@ -9,6 +9,7 @@ import kotlinx.datetime.LocalDateTime
 
 data class Note(
     val id: Long?,
+    val remoteId: String?,
     val title: String,
     val content: String,
     val colorHex: Long,

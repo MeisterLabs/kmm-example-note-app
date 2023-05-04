@@ -1,6 +1,6 @@
 package com.meisterlabs.testapp.android.note_list
 
-import com.meisterlabs.testapp.domain.note.Note
+import com.meisterlabs.testapp.domain.model.Note
 
 data class NoteListState(
     val notes: List<Note> = emptyList(),

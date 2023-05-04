@@ -3,9 +3,10 @@ package com.meisterlabs.testapp.android.note_list
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.meisterlabs.testapp.domain.note.Note
-import com.meisterlabs.testapp.domain.note.NoteDataSource
-import com.meisterlabs.testapp.domain.note.SearchNotesUseCase
+import com.meisterlabs.testapp.domain.model.Note
+import com.meisterlabs.testapp.domain.use_cases.DeleteNoteUseCase
+import com.meisterlabs.testapp.domain.use_cases.GetNotesUseCase
+import com.meisterlabs.testapp.domain.use_cases.SearchNotesUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
@@ -15,12 +16,11 @@ import kotlinx.coroutines.launch
 
 @HiltViewModel
 class NoteListViewModel @Inject constructor(
-    private val noteDataSource: NoteDataSource,
+    private val getNotesUseCase: GetNotesUseCase,
+    private val deleteNoteUseCase: DeleteNoteUseCase,
+    private val searchNotesUseCase: SearchNotesUseCase,
     private val savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
-
-    // could be provided via Hilt if it has parameters
-    private val searchNotes = SearchNotesUseCase()
 
     // could be use noteliststate as weel
     private val notes = savedStateHandle.getStateFlow("notes", emptyList<Note>())
@@ -29,7 +29,7 @@ class NoteListViewModel @Inject constructor(
 
     val state = combine(notes, searchText, isSearchActive) { notes, searchText, isSearchActive ->
         NoteListState(
-            notes = searchNotes.execute(notes, searchText),
+            notes = searchNotesUseCase.execute(notes, searchText),
             searchText = searchText,
             isSearchActive = isSearchActive
         )
@@ -37,7 +37,7 @@ class NoteListViewModel @Inject constructor(
 
     fun loadNotes() {
         viewModelScope.launch {
-            savedStateHandle["notes"] = noteDataSource.getAllNotes()
+            savedStateHandle["notes"] = getNotesUseCase.execute()
         }
     }
 
@@ -52,9 +52,9 @@ class NoteListViewModel @Inject constructor(
         }
     }
 
-    fun deleteNoteById(id: Long) {
+    fun deleteNoteById(id: String) {
         viewModelScope.launch {
-            noteDataSource.deleteNoteByd(id)
+            deleteNoteUseCase.execute(id)
             // we should use flow but ios has problem with it
             loadNotes()
         }

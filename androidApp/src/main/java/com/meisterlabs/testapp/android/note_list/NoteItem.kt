@@ -25,7 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.meisterlabs.testapp.domain.note.Note
+import com.meisterlabs.testapp.domain.model.Note
 import com.meisterlabs.noteapp.domain.time.DateTimeUtil
 import com.meisterlabs.testapp.android.R
 

@@ -1,6 +1,7 @@
-package com.meisterlabs.testapp.domain.note
+package com.meisterlabs.testapp.domain.use_cases
 
 import com.meisterlabs.noteapp.domain.time.DateTimeUtil
+import com.meisterlabs.testapp.domain.model.Note
 
 class SearchNotesUseCase {
 

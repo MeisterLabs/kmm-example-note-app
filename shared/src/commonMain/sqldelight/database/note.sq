@@ -1,5 +1,6 @@
 CREATE TABLE noteEntity(
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    remoteId TEXT NOT NULL,
     title TEXT NOT NULL,
     content TEXT NOT NULL,
     colorHex INTEGER NOT NULL,
@@ -19,11 +20,12 @@ insertNote:
 INSERT OR REPLACE
 INTO noteEntity(
     id,
+    remoteId,
     title,
     content,
     colorHex,
     created
-) VALUES(?, ?, ?, ?, ?);
+) VALUES(?, ?,?, ?, ?, ?);
 
 deleteNoteById:
 DELETE FROM noteEntity

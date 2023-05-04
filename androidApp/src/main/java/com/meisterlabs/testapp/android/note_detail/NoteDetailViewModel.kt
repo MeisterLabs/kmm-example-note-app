@@ -3,7 +3,7 @@ package com.meisterlabs.testapp.android.note_detail
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.meisterlabs.testapp.domain.note.Note
+import com.meisterlabs.testapp.domain.model.Note
 import com.meisterlabs.testapp.domain.note.NoteDataSource
 import com.meisterlabs.noteapp.domain.time.DateTimeUtil
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -58,12 +58,12 @@ class NoteDetailViewModel @Inject constructor(
             }
             this.existingNodeId = existingNodeId
             viewModelScope.launch {
-                noteDataSource.getNoteById(existingNodeId)?.let { note ->
-                    // save in saved state from data source
-                    savedStateHandle["noteTitle"] = note.title
-                    savedStateHandle["noteContent"] = note.content
-                    savedStateHandle["noteColor"] = note.colorHex
-                }
+                // noteDataSource.getNoteById(existingNodeId)?.let { note ->
+                //     // save in saved state from data source
+                //     savedStateHandle["noteTitle"] = note.title
+                //     savedStateHandle["noteContent"] = note.content
+                //     savedStateHandle["noteColor"] = note.colorHex
+                // }
             }
         }
     }
@@ -89,6 +89,7 @@ class NoteDetailViewModel @Inject constructor(
             noteDataSource.insertNode(
                 Note(
                     id = existingNodeId,
+                    remoteId = "",
                     title = noteTitle.value,
                     content = noteContent.value,
                     colorHex = noteColor.value,
