@@ -47,6 +47,19 @@ struct NoteListScreen: View {
                     Text("all_notes")
                         .font(.title2)
                 }
+                
+                // todo loading
+//
+//                ProgressView()
+//                    .progressViewStyle(CircularProgressViewStyle())
+            }
+            
+            if viewModel.filterNotes.isEmpty {
+    //            Text(LocalizedStringKey("no_notes")).frame(maxHeight: .infinity, maxWidth: .infinity, alignment: .center)
+                Text("SwiftUI SwiftUI SwiftUI SwiftUI SwiftUI")
+                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            .font(.largeTitle)
+                            .multilineTextAlignment(TextAlignment.center)
             }
             
             List {
@@ -68,12 +81,18 @@ struct NoteListScreen: View {
             }
             .listStyle(.plain)
             .listRowSeparator(.hidden)
+
+            
         }
         .onAppear {
             viewModel.setNoteDataSource(noteDataSource: noteDataSource)
-            viewModel.setGetNoteUseCase(getNoteUseCase: getNoteUseCase)
+            viewModel.setGetNotesUseCase(getNotesUseCase: getNoteUseCase)
         }
+        
+        // todo center text
+    
     }
+
 }
 
 struct NoteListScreen_Previews: PreviewProvider {

@@ -78,6 +78,7 @@ class NoteListViewModel @Inject constructor(
 
     fun deleteNoteById(id: String) {
         viewModelScope.launch {
+            savedStateHandle["isLoading"] = true
             deleteNoteUseCase.execute(id)
             // we should use flow but ios has problem with it
             loadNotes()

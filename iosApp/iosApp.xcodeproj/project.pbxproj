@@ -14,6 +14,7 @@
 		0423BF3929FAB05600740770 /* Colors.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BF3829FAB05600740770 /* Colors.swift */; };
 		0423BF3B29FAB44000740770 /* NoteDetailScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BF3A29FAB44000740770 /* NoteDetailScreen.swift */; };
 		0423BF3D29FAB6ED00740770 /* NoteDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0423BF3C29FAB6ED00740770 /* NoteDetailViewModel.swift */; };
+		0455B80A2A044CF0001E2A03 /* FlowPublisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0455B8092A044CF0001E2A03 /* FlowPublisher.swift */; };
 		046C256A2A040C2900559EBA /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 046C25692A040C2900559EBA /* Localizable.strings */; };
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
@@ -42,6 +43,7 @@
 		0423BF3829FAB05600740770 /* Colors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Colors.swift; sourceTree = "<group>"; };
 		0423BF3A29FAB44000740770 /* NoteDetailScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailScreen.swift; sourceTree = "<group>"; };
 		0423BF3C29FAB6ED00740770 /* NoteDetailViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NoteDetailViewModel.swift; sourceTree = "<group>"; };
+		0455B8092A044CF0001E2A03 /* FlowPublisher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlowPublisher.swift; sourceTree = "<group>"; };
 		046C25692A040C2900559EBA /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -82,6 +84,14 @@
 			path = note_detail;
 			sourceTree = "<group>";
 		};
+		0455B8082A044CC7001E2A03 /* repository */ = {
+			isa = PBXGroup;
+			children = (
+				0455B8092A044CF0001E2A03 /* FlowPublisher.swift */,
+			);
+			path = repository;
+			sourceTree = "<group>";
+		};
 		058557D7273AAEEB004C7B11 /* Preview Content */ = {
 			isa = PBXGroup;
 			children = (
@@ -110,6 +120,7 @@
 		7555FF7D242A565900829871 /* iosApp */ = {
 			isa = PBXGroup;
 			children = (
+				0455B8082A044CC7001E2A03 /* repository */,
 				046C25692A040C2900559EBA /* Localizable.strings */,
 				0423BF2F29FAA83400740770 /* note_detail */,
 				0423BF2E29FAA82E00740770 /* note_list */,
@@ -227,6 +238,7 @@
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
 				0423BF3B29FAB44000740770 /* NoteDetailScreen.swift in Sources */,
 				0423BF3329FAA8A300740770 /* NoteListScreen.swift in Sources */,
+				0455B80A2A044CF0001E2A03 /* FlowPublisher.swift in Sources */,
 				0423BF3929FAB05600740770 /* Colors.swift in Sources */,
 				0423BF3D29FAB6ED00740770 /* NoteDetailViewModel.swift in Sources */,
 				7555FF83242A565900829871 /* ContentView.swift in Sources */,

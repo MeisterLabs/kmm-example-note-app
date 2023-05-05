@@ -7,7 +7,9 @@ import com.meisterlabs.testapp.data.remote.NotesServiceImpl
 import com.meisterlabs.testapp.data.repository.NotesRepositoryImpl
 import com.meisterlabs.testapp.database.NoteDatabase
 import com.meisterlabs.testapp.domain.repository.NotesRepository
+import com.meisterlabs.testapp.domain.use_cases.DeleteNoteUseCase
 import com.meisterlabs.testapp.domain.use_cases.GetNotesUseCase
+import com.meisterlabs.testapp.domain.use_cases.SaveNoteUseCase
 
 class DiModule {
     private val factory by lazy { DatabaseDriverFactory() }
@@ -22,5 +24,13 @@ class DiModule {
 
     val getNotesUseCase by lazy {
         GetNotesUseCase(notesRepository)
+    }
+
+    val deleteNoteUseCase by lazy {
+        DeleteNoteUseCase(notesRepository)
+    }
+
+    val saveNoteUseCase by lazy {
+        SaveNoteUseCase(notesRepository)
     }
 }

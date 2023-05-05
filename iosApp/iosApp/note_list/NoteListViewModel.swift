@@ -15,6 +15,7 @@ extension NoteListScreen {
     @MainActor class NoteListViewModel: ObservableObject {
         private var getNotesUseCase: GetNotesUseCase? = nil
         private var noteDataSource: NoteDataSource? = nil
+        private var deleteNodeUseCase: DeleteNoteUseCase? = nil
         
         private let searchNotes = SearchNotesUseCase()
         
@@ -30,21 +31,49 @@ extension NoteListScreen {
         @Published private(set) var isSearchActive = false
         
         
-        init(noteDataSource: NoteDataSource? = nil, getNotesUseCase: GetNotesUseCase? = nil) {
+        init(noteDataSource: NoteDataSource? = nil, getNotesUseCase: GetNotesUseCase? = nil, deleteNoteUseCase: DeleteNoteUseCase? = nil) {
             self.noteDataSource = noteDataSource
             self.getNotesUseCase = getNotesUseCase
+            self.deleteNodeUseCase = deleteNoteUseCase
         }
         
+//        private var subscription: AnyCancellable?
+        
+        
+        
         func loadNotes() {
+//            Task {
+//                  do {
+//                    let stream = asyncStream(
+//                        for: getNotesUseCase?.execute()
+//                    )
+//                    for try await data in stream {
+//                        self.notes = notes ?? []
+//                        self.filterNotes = self.notes
+//                    }
+//                  } catch {
+//                    print("Failed with error: \(error)")
+//                  }
+//                }
+            
+//            subscription = FlowPublisher<NSArray>(flow: getNotesUseCase?.execute())
+//                .map({ entities in
+//                    entities.map { self.visualFactory.from(note: $0 as! PreviewNoteEntity) }
+//                })
+//                .assign(to: \.notes, on: self)
+            
             noteDataSource?.getAllNotes(completionHandler: { notes, error in
                 self.notes = notes ?? []
                 self.filterNotes = self.notes
-                
+
             })
         }
         
-        // equalient to Long
         func deleteNoteById(id: String) {
+//            guard id != nil
+//            deleteNodeUseCase?.execute(noteId: id, completionHandler: { resource, error in ->
+//
+//            })
             if id != nil {
                 noteDataSource?.deleteNoteByd(id: id, completionHandler: { error in
                     self.loadNotes()
@@ -63,8 +92,12 @@ extension NoteListScreen {
             self.noteDataSource = noteDataSource
         }
         
-        func setGetNoteUseCase(getNotesUseCase: GetNotesUseCase) {
+        func setGetNotesUseCase(getNotesUseCase: GetNotesUseCase) {
             self.getNotesUseCase = getNotesUseCase
+        }
+        
+        func setDeleteNoteUseCase(deleteNoteUseCase: DeleteNoteUseCase) {
+            self.deleteNodeUseCase = deleteNoteUseCase
         }
         
     }

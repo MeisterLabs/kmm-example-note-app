@@ -3,6 +3,7 @@ plugins {
     kotlin("android")
     id("kotlin-kapt")
     id("dagger.hilt.android.plugin")
+    // id("com.rickclephas.kmp.nativecoroutines") version "<version>"
 }
 
 android {
